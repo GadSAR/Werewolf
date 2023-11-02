@@ -7,7 +7,7 @@ export default async function Home() {
   const session = await getServerAuthSession();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-black text-white">
+    <>
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-6 ">
         <div className="flex flex-col items-center gap-2">
           <div className="flex flex-col items-center justify-center gap-4">
@@ -34,18 +34,12 @@ export default async function Home() {
           </div>
         </div>
       </div>
-      {/* <Link
-        href="/posts"
-        className="rounded-full bg-white/10 px-20 py-6 font-semibold no-underline transition hover:bg-white/20"
-      >
-        View Posts
-      </Link> */}
       <Link
-        href="/new"
+        href="/lobby"
         className="my-2 rounded-full bg-white/10 px-20 py-6 font-semibold no-underline transition hover:bg-white/20"
       >
         Start Now!
       </Link>
-    </main>
+    </>
   );
 }

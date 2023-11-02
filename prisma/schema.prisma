@@ -27,15 +27,20 @@ model Post {
 }
 
 model Room {
-    id        Int      @id @default(autoincrement())
+    id        String   @id @default(cuid()) @unique
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    createdBy   User   @relation(fields: [createdById], references: [id])
+    phase      Int    @default(0)
+    players    User[]  @relation("RoomPlayers")
+    status     String @default("open")
+
+    createdBy   User   @relation("RoomCreatedBy", fields: [createdById], references: [id])
     createdById String
 
     @@index([createdAt])
 }
+
 
 // Necessary for Next auth
 model Account {
@@ -73,7 +78,8 @@ model User {
     accounts      Account[]
     sessions      Session[]
     posts         Post[]
-    rooms         Room[]    
+    roomsCreated  Room[]    @relation("RoomCreatedBy")
+    roomsJoined   Room[]    @relation("RoomPlayers")
 }
 
 model VerificationToken {

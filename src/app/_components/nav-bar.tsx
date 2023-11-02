@@ -8,13 +8,14 @@ type NavBarProps = {
 
 const NavBar = ({ session }: NavBarProps) => {
   return (
-    <nav className="flex items-center justify-between bg-black px-4 py-2 text-white">
+    <nav className="flex items-center justify-between bg-black px-6 py-4 text-white">
       <Link className="text-2xl font-semibold" href="/">
         Werewolf Game
       </Link>
-      <p className="flex flex-row items-center gap-2 ">
+      <section className="flex flex-row items-center gap-3 ">
         {session && (
           <>
+            <p className="text-xs">{session.user.name}</p>
             {session.user.image && (
               <Image
                 src={session.user.image}
@@ -24,10 +25,9 @@ const NavBar = ({ session }: NavBarProps) => {
                 className="rounded-full"
               />
             )}
-            <span>{session.user.name}</span>
           </>
         )}
-      </p>
+      </section>
     </nav>
   );
 };

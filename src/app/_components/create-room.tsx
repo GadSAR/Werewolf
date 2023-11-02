@@ -9,7 +9,6 @@ export function CreateRoom() {
   const createRoom = api.room.create.useMutation({
     onSuccess: (res) => {
       router.push(`/room/${res.id}`);
-      console.log(res);
     },
     onError: (err) => {
       console.log(err);

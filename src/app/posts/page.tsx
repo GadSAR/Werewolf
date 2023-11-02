@@ -9,7 +9,7 @@ export default async function Posts() {
   const latestPost = await api.post.getLatest.query();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-4 bg-black text-white">
+    <>
       {latestPost ? (
         <p className="truncate">Your most recent post: {latestPost.name}</p>
       ) : (
@@ -17,6 +17,6 @@ export default async function Posts() {
       )}
 
       <CreatePost />
-    </main>
+    </>
   );
 }

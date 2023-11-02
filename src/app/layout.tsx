@@ -15,7 +15,7 @@ const inter = Inter({
 export const metadata = {
   title: "Werewolf Game",
   description: "A multiplayer game of Werewolf",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/werewolf.svg" }],
 };
 
 export default async function RootLayout({
@@ -27,10 +27,15 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>
+      <body
+        className={`font-sans ${inter.variable} overflow-hidden`}
+        suppressHydrationWarning
+      >
         <TRPCReactProvider headers={headers()}>
           <NavBar session={session} />
-          {children}
+          <main className="flex min-h-screen flex-col items-center justify-center gap-4 bg-black text-white">
+            {children}
+          </main>
         </TRPCReactProvider>
       </body>
     </html>
