@@ -12,8 +12,9 @@ export const userRouter = createTRPCRouter({
   getUser: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.db.user.findFirst({
+      const data = ctx.db.user.findFirst({
         where: { id: input.id },
       });
+      return data;
     }),
 });

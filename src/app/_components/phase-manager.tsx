@@ -1,12 +1,12 @@
 "use client";
 import { useGameStore } from "~/store/game";
-import type { Room, User } from "~/types/trpc";
 import LobbyGame from "./lobby-game";
 import LobbySettings from "./lobby-settings";
 import WaitingLobby from "./waiting-lobby";
 import { useEffect } from "react";
 import { pusherClient } from "~/lib/pusher";
 import { api } from "~/trpc/react";
+import type { Room, User } from "@prisma/client";
 
 type PhaseManagerProps = {
   room: Room;
@@ -14,19 +14,15 @@ type PhaseManagerProps = {
 
 const PhaseManager = ({ room }: PhaseManagerProps) => {
   const { roomGame, setRoomGame, setUsers, phase, toPhase } = useGameStore();
-  const roomId = room!.id;
+  const roomId = room.id;
 
   useEffect(() => {
     const channel = pusherClient.subscribe(`room-${roomId}`);
     channel.bind("game", function (data: Room) {
-      if (!data || data.id !== roomId) return;
-      console.log(data);
-      setRoomGame(data);
+      if (data) setRoomGame(data);
     });
     channel.bind("users", function (data: User[]) {
-      if (!data) return;
-      console.log(data);
-      setUsers(data);
+      if (data) setUsers(data);
     });
 
     return () => {

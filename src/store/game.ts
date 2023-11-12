@@ -1,8 +1,8 @@
 import { create } from "zustand";
-import type { Room, User } from "~/types/trpc";
+import type { Room, User } from "@prisma/client";
 
 interface GameStore {
-  roomGame: Room | null;
+  roomGame?: Room;
   setRoomGame: (room: Room) => void;
   phase: number;
   toPhase: (to: number) => void;
@@ -11,7 +11,6 @@ interface GameStore {
 }
 
 export const useGameStore = create<GameStore>((set) => ({
-  roomGame: null,
   setRoomGame: (room: Room) => {
     set(() => {
       return {
